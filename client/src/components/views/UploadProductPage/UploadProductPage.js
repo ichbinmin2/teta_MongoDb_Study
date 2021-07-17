@@ -15,7 +15,7 @@ const continents = [
   { key: 7, value: "Antarctica" },
 ];
 
-function UploadProdectPage() {
+function UploadProductPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -38,6 +38,10 @@ function UploadProdectPage() {
     setContinent(event.currentTarget.value);
   };
 
+  const updateImages = (newImages) => {
+    setimages(newImages);
+  };
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -45,7 +49,7 @@ function UploadProdectPage() {
       </div>
 
       <Form>
-        <FileUpload />
+        <FileUpload refreshFunction={updateImages} />
         <br />
         <br />
         <label>이름</label>
@@ -75,4 +79,4 @@ function UploadProdectPage() {
   );
 }
 
-export default UploadProdectPage;
+export default UploadProductPage;
