@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Button, Input, Form } from "antd";
+import FileUpload from "../../utils/FileUpload";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -42,7 +43,9 @@ function UploadProdectPage() {
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
         <Title level={2}> 여행 상품 업로드</Title>
       </div>
+
       <Form>
+        <FileUpload />
         <br />
         <br />
         <label>이름</label>
