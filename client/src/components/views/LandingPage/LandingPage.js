@@ -2,14 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Icon, Col, Card, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
+import ImageSlider from "../../utils/ImageSlider";
 
-//
 function LandingPage() {
   const [products, setProducts] = useState([]);
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(8);
+
   useEffect(() => {
-    axios.post("/api/product/products").then((response) => {
+    let body = {
+      skip: skip,
+      limit: limit,
+    };
+
+    axios.post("/api/product/products", body).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
         setProducts(response.data.productInfo);
       } else {
         alert("상품을 가져오는데 실패했습니다.");
@@ -17,17 +24,12 @@ function LandingPage() {
     });
   }, []);
 
+  const loadMoreHandler = () => {};
+
   const renderCards = products.map((item, index) => {
     return (
       <Col lg={6} md={8} xs={24} key={index}>
-        <Card
-          cover={
-            <img
-              style={{ width: "100%", maxHeight: "150px" }}
-              src={`http://localhost:5000/${item.images[0]}`}
-            />
-          }
-        >
+        <Card cover={<ImageSlider images={item.images} />}>
           <Meta title={item.title} description={`$${item.price}`} />
         </Card>
       </Col>
@@ -50,7 +52,7 @@ function LandingPage() {
       <Row gutter={[16, 16]}>{renderCards}</Row>
 
       <div style={{ justifyContent: "center" }}>
-        <button>더보기</button>
+        <button onClick={loadMoreHandler}>더보기</button>
       </div>
     </div>
   );
