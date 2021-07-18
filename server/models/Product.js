@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema(
   {
-    wirter: {
+    writer: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
@@ -27,8 +27,7 @@ const productSchema = mongoose.Schema(
       maxlength: 100,
       default: 0,
     },
-
-    continent: {
+    continents: {
       type: Number,
       default: 1,
     },

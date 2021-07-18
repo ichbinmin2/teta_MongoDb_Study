@@ -57,13 +57,14 @@ function UploadProductPage(props) {
       description: description,
       price: price,
       images: images,
-      continent: continent,
+      continents: continent,
     };
 
     Axios.post("/api/product", body).then((response) => {
       if (response.data.success) {
         alert("상품 업로드에 성공했습니다.");
         props.history.push("/");
+        console.log("body.writer", body.writer);
       } else {
         alert("상품 업로드에 실패했습니다.");
       }
