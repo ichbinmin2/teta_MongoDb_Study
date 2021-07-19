@@ -1,4 +1,4 @@
-const contienets = [
+const continents = [
   {
     _id: 1,
     name: "Africa",
@@ -30,4 +30,4 @@ const contienets = [
   },
 ];
 
-export { contienets };
+export { continents };

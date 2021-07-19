@@ -49,7 +49,17 @@ router.post("/products", (req, res) => {
   let limit = req.body.limit ? parseInt(req.body.limit) : 100;
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;
 
-  Product.find()
+  let findArgs = {};
+
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      findArgs[key] = req.body.filters[key];
+    }
+  }
+
+  console.log("findArgs", findArgs);
+
+  Product.find(findArgs)
     // populate 를 사용하면, 상품을 저장한 사람의 모든 정보를 가져올 수 있다.
     .populate("writer")
     .skip(skip)
