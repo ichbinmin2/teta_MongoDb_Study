@@ -4,7 +4,8 @@ import { Icon, Col, Card, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
 import CheckBox from "./Section/CheckBox";
-import { continents } from "./Section/Datas";
+import RadioBox from "./Section/RadioBox";
+import { continents, price } from "./Section/Datas";
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
@@ -88,12 +89,22 @@ function LandingPage() {
 
       {/* Filter */}
 
-      {/* checkBox */}
-      <CheckBox
-        list={continents}
-        handleFilters={(filters) => handleFilters(filters, "continents")}
-      />
-      {/* radioBox */}
+      <Row gutter={[16, 16]}>
+        <Col lg={12} xs={24}>
+          {/* checkBox */}
+          <CheckBox
+            list={continents}
+            handleFilters={(filters) => handleFilters(filters, "continents")}
+          />
+        </Col>
+        <Col lg={12} xs={24}>
+          {/* radioBox */}
+          <RadioBox
+            list={price}
+            handleFilters={(filters) => handleFilters(filters, "price")}
+          />
+        </Col>
+      </Row>
 
       {/* Search */}
 
