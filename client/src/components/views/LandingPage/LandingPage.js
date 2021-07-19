@@ -3,6 +3,8 @@ import axios from "axios";
 import { Icon, Col, Card, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
+import CheckBox from "./Section/CheckBox";
+import { contienets } from "./Section/Datas";
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
@@ -66,6 +68,10 @@ function LandingPage() {
       </div>
 
       {/* Filter */}
+
+      {/* checkBox */}
+      <CheckBox list={contienets} />
+      {/* radioBox */}
 
       {/* Search */}
 
