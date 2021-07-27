@@ -18,6 +18,7 @@ function RadioBox(props) {
     setValue(event.target.value);
     props.handleFilters(event.target.value);
   };
+
   return (
     <div>
       <Collapse defaultActiveKey={["1"]}>

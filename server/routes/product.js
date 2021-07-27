@@ -53,7 +53,19 @@ router.post("/products", (req, res) => {
 
   for (let key in req.body.filters) {
     if (req.body.filters[key].length > 0) {
-      findArgs[key] = req.body.filters[key];
+      console.log("key", key);
+
+      if (key === "price") {
+        // * price 데이터내에서 가격 범위(arayy[00 to 00])가 있기 때문에 필요한 옵션 *
+        findArgs[key] = {
+          // gte : mongoDB에서 사용하는 용어. 이것보다 크거나 같고(Greater than equal)
+          $gte: req.body.filters[key][0],
+          // let : mongoDB에서 사용하는 용어. 이것보다 작거나 같은(Less than equal)
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
     }
   }
 
