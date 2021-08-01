@@ -18,6 +18,8 @@ router.get("/auth", auth, (req, res) => {
     lastname: req.user.lastname,
     role: req.user.role,
     image: req.user.image,
+    cart: req.user.cart,
+    history: req.user.history,
   });
 });
 
@@ -84,28 +86,24 @@ router.post("/addToCart", auth, (req, res) => {
         }
       });
 
+      //상품이 이미 있을때
       if (duplicate) {
-        // 상품이 이미 있을 때
         // 업데이트된 User 정보를 받기
         User.findOneAndUpdate(
-          {
-            _id: req.user._id,
-            "cart.id": req.body.productId,
-          },
+          { _id: req.user._id, "cart.id": req.body.productId },
           { $inc: { "cart.$.quantity": 1 } },
           { new: true },
           (err, userInfo) => {
-            if (err) return res.status(400).json({ success: false, err });
+            if (err) return res.status(200).json({ success: false, err });
             res.status(200).send(userInfo.cart);
           }
         );
-      } else {
-        // 상품이 없을 때
+      }
+      // 상품이 없을 때
+      else {
         // 업데이트된 User 정보를 받기
         User.findOneAndUpdate(
-          {
-            _id: req.user._id,
-          },
+          { _id: req.user._id },
           {
             $push: {
               cart: {
@@ -117,7 +115,7 @@ router.post("/addToCart", auth, (req, res) => {
           },
           { new: true },
           (err, userInfo) => {
-            if (err) return res.status(200).json({ success: false, err });
+            if (err) return res.status(400).json({ success: false, err });
             res.status(200).send(userInfo.cart);
           }
         );

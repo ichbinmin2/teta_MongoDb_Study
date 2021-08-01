@@ -11,7 +11,6 @@ const ProductInfo = (props) => {
 
     dispatch(addToCart(props.detail._id));
   };
-  //   useEffect(() => {}, []);
   return (
     <div>
       <Descriptions title="Product Info" bordered>

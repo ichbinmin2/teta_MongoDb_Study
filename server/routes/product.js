@@ -106,9 +106,18 @@ router.get("/products_by_id", (req, res) => {
   // 받아온 정보들을 db에 넣어주는 작업
   // productId를 이용해서 DB에서 productId와 같은 상품 정보를 가져온다.
   let type = req.query.type;
-  let productId = req.query.id;
+  let productIds = req.query.id;
 
-  Product.find({ _id: { $in: productId } })
+  if ((type = "array")) {
+    // ex) id = 1234, 5678, 9012 를
+    // productIds = [ '1234', '5678', '9012'] 로 바꿔주는 작업이다.
+    let ids = req.query.id.split(",");
+    productIds = ids.map((item) => {
+      return item;
+    });
+  }
+
+  Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
       if (err) return res.status(400).send(err);

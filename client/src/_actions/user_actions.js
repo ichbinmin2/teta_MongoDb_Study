@@ -65,3 +65,19 @@ export function addToCart(id) {
     payload: request,
   };
 }
+
+export function getCartItems(cartItems, userCart) {
+  const request = axios
+    .get(`/api/product/products_by_id?id=${cartItems}&type=array `, body)
+    .then((response) => 
+    
+    // CartItem들에 해당하는 정보들을 Product Collection에서 가져온 후에 
+    // Quantity 정보를 넣어준다);
+
+    );
+
+  return {
+    type: GET_CART_ITEMS,
+    payload: request,
+  };
+}
