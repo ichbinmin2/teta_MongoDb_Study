@@ -2,26 +2,30 @@ import React from "react";
 import "./UserCardBlock.css";
 
 function UserCardBlock(props) {
-  const renderCartImage = (img) => {
-    if (img.length > 0) {
-      let image = img[0];
+  const renderCartImage = (images) => {
+    if (images.length > 0) {
+      let image = images[0];
       return `http://localhost:5000/${image}`;
     }
   };
-  const renderItems = () => {
+  const renderItems = () =>
     props.products &&
-      props.products.map((product) => (
-        <tr>
-          <td>
-            <ima
-              style={{ width: "70px" }}
-              alt="product"
-              src={renderCartImage(product.images)}
-            />
-          </td>
-        </tr>
-      ));
-  };
+    props.products.map((product) => (
+      <tr>
+        <td>
+          <img
+            style={{ width: "70px" }}
+            alt="product"
+            src={renderCartImage(product.images)}
+          />
+        </td>
+        <td>{product.quantity}</td>
+        <td> $ {product.price}</td>
+        <td>
+          <button>Remove</button>
+        </td>
+      </tr>
+    ));
   return (
     <div>
       <table>
