@@ -105,17 +105,25 @@ router.post("/products", (req, res) => {
 router.get("/products_by_id", (req, res) => {
   // 받아온 정보들을 db에 넣어주는 작업
   // productId를 이용해서 DB에서 productId와 같은 상품 정보를 가져온다.
-  let productId = req.query.id;
   let type = req.query.type;
+  let productIds = req.query.id;
 
-  Product.find({ _id: productId })
+  if ((type = "array")) {
+    // ex) id = 1234, 5678, 9012 를
+    // productIds = [ '1234', '5678', '9012'] 로 바꿔주는 작업이다.
+    let ids = req.query.id.split(",");
+    productIds = ids.map((item) => {
+      return item;
+    });
+  }
+
+  //productId를 이용해서 DB에서  productId와 같은 상품의 정보를 가져온다.
+  Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).send({ success: true, product });
+      return res.status(200).send(product);
     });
 });
-
-axios.get(`/api/product/products_by_id?id=${productId}&type=single`);
 
 module.exports = router;
