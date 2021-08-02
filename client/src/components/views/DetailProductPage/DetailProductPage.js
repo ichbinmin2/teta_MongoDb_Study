@@ -13,7 +13,8 @@ const DetailProductPage = (props) => {
       .get(`/api/product/products_by_id?id=${productId}&type=single`)
       .then((response) => {
         setProduct(response.data[0]);
-      });
+      })
+      .catch((err) => alert(err));
   }, []);
 
   console.log(`Product`, Product);

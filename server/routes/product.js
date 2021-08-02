@@ -117,6 +117,7 @@ router.get("/products_by_id", (req, res) => {
     });
   }
 
+  //productId를 이용해서 DB에서  productId와 같은 상품의 정보를 가져온다.
   Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
